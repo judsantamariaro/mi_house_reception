@@ -1,0 +1,10 @@
+include: package:lint/analysis_options_package.yaml
+
+analyzer:
+  errors:
+    todo: warning
+
+linter:
+  rules:
+    sort_pub_dependencies: false
+    prefer_if_elements_to_conditional_expressions: false
