@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:mi_house_administrator/core/constants/api_constants.dart';
-import 'package:mi_house_administrator/core/failure/failure.dart';
-import 'package:mi_house_administrator/core/token/token.dart';
+import 'package:mi_house_reception/core/constants/api_constants.dart';
+import 'package:mi_house_reception/core/failure/failure.dart';
+import 'package:mi_house_reception/core/token/token.dart';
 
 abstract class HttpHandler {
   Future<Map<String, dynamic>> performGet(

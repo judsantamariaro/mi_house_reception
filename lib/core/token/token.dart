@@ -1,5 +1,5 @@
-import 'package:mi_house_administrator/core/db/database.dart';
-import 'package:mi_house_administrator/core/failure/failure.dart';
+import 'package:mi_house_reception/core/db/database.dart';
+import 'package:mi_house_reception/core/failure/failure.dart';
 
 class Token {
   String? token;
