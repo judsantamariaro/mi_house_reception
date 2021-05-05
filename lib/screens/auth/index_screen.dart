@@ -13,7 +13,7 @@ class IndexScreen extends StatelessWidget {
     final authProv = Provider.of<AuthProvider>(context);
     switch (authProv.state) {
       case AuthStates.initial:
-        return const LoginScreen();
+        return LoginScreen();
       case AuthStates.authenticated:
         return Container();
       case AuthStates.notAuthenticated:

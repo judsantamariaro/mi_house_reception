@@ -1,33 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mi_house_reception/core/util/app_state.dart';
 
 class CustomModals {
   Future<void> showError({
     required String message,
-    String title = 'Oops ha ocurrido un error\nHa esta página le ha dado amsiedad',
+    String title = 'Oops ha ocurrido un error',
     VoidCallback? onPressed,
     VoidCallback? confirmButtonAction,
-    required BuildContext context,
   }) {
     return showDialog(
-      context: context,
+      context: appContext.getContext,
       builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/ilustrations/ansiedad.png',
-              width: 150,
-              height: 128,
-            ),
-            const Text(' '),
-            Text(title)
-          ],
-        ),
+        title: Text(title),
         content: Text(message),
         actions: [
           ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Theme.of(context).primaryColor,
-            ),
+            style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
             onPressed: () => onPressed == null ? Navigator.of(context).pop() : onPressed(),
             child: const Text('Salir'),
           ),
@@ -52,21 +40,11 @@ class CustomModals {
     String title = '¡Felicitaciones!',
     VoidCallback? onPressed,
     VoidCallback? confirmButtonAction,
-    required BuildContext context,
   }) {
     return showDialog(
-      context: context,
+      context: appContext.getContext,
       builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/ilustrations/noansiedad.png',
-              width: 128,
-              height: 150,
-            ),
-            Text(title),
-          ],
-        ),
+        title: Text(title),
         content: Text(message),
         actions: [
           ElevatedButton(
