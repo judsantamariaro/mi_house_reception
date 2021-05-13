@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mi_house_reception/screens/home/home_reports_tab.dart';
+import 'package:mi_house_reception/screens/home/home_tab.dart';
+import 'package:mi_house_reception/screens/home/profile_tab.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreenIndex extends StatefulWidget {
+  const HomeScreenIndex({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenIndexState createState() => _HomeScreenIndexState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenIndexState extends State<HomeScreenIndex> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -35,14 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: IndexedStack(
-        index: index,
-        children: const [
-          Center(child: Text('0')),
-          Center(child: Text('1')),
-          Center(child: Text('2')),
-        ],
-      ),
+      extendBody: true,
+      body: IndexedStack(index: index, children: const [HomeTab(), ReportsTab(), ProfileTab()]),
     );
   }
 }

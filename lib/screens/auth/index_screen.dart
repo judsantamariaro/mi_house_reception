@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_house_reception/features/auth/auth_provider.dart';
 import 'package:mi_house_reception/screens/auth/login_screen.dart';
-import 'package:mi_house_reception/screens/home/home_screen.dart';
+import 'package:mi_house_reception/screens/home/home_screen_index.dart';
 import 'package:provider/provider.dart';
 
 class IndexScreen extends StatelessWidget {
@@ -16,7 +16,7 @@ class IndexScreen extends StatelessWidget {
       case AuthStates.initial:
         return LoginScreen();
       case AuthStates.authenticated:
-        return const HomeScreen();
+        return const HomeScreenIndex();
       case AuthStates.notAuthenticated:
         return LoginScreen();
     }
