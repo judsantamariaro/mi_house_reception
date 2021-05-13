@@ -20,7 +20,8 @@ class AuthProvider extends ChangeNotifier {
 
   InitialRegisterArgs? initialRegisterArgs;
   AuthModel? auth;
-  AuthStates state = AuthStates.initial;
+  //TODO: CHANGE FOR DEV PROPOUSES
+  AuthStates state = AuthStates.authenticated;
 
   AuthProvider({required this.token, required this.httpHandler});
 
