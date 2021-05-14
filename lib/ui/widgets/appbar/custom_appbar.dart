@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget {
           width: 45,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).accentColor,
             boxShadow: const [
               BoxShadow(
                 color: Colors.grey,

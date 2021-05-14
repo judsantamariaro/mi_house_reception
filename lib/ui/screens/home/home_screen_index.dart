@@ -38,6 +38,7 @@ class _HomeScreenIndexState extends State<HomeScreenIndex> {
           ),
         ),
       ),
+      extendBodyBehindAppBar: true,
       extendBody: true,
       body: IndexedStack(
         index: index,

@@ -7,7 +7,7 @@ class CustomLightTheme {
       scaffoldBackgroundColor: const Color(0xFFF4F4F7),
       textTheme: GoogleFonts.poppinsTextTheme(),
       primaryColor: const Color(0xFF4369CC),
-      accentColor: const Color(0xFFFE6E48),
+      accentColor: const Color(0xFFDA603E),
       inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),
     );
   }
