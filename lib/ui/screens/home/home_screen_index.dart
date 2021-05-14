@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mi_house_reception/screens/home/home_reports_tab.dart';
-import 'package:mi_house_reception/screens/home/home_tab.dart';
-import 'package:mi_house_reception/screens/home/profile_tab.dart';
+import 'package:mi_house_reception/ui/screens/home/home_reports_tab.dart';
+import 'package:mi_house_reception/ui/screens/home/home_tab.dart';
+import 'package:mi_house_reception/ui/screens/home/profile_tab.dart';
 
 class HomeScreenIndex extends StatefulWidget {
   const HomeScreenIndex({Key? key}) : super(key: key);
@@ -39,7 +39,14 @@ class _HomeScreenIndexState extends State<HomeScreenIndex> {
         ),
       ),
       extendBody: true,
-      body: IndexedStack(index: index, children: const [HomeTab(), ReportsTab(), ProfileTab()]),
+      body: IndexedStack(
+        index: index,
+        children: [
+          HomeTab(),
+          const ReportsTab(),
+          const ProfileTab(),
+        ],
+      ),
     );
   }
 }

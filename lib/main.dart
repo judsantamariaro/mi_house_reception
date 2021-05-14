@@ -8,7 +8,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mi_house_reception/dependency_injection.dart';
 import 'package:mi_house_reception/features/auth/auth_provider.dart';
-import 'package:mi_house_reception/screens/auth/index_screen.dart';
+import 'package:mi_house_reception/ui/screens/auth/index_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
