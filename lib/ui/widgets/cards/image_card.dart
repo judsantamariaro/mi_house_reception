@@ -11,6 +11,7 @@ class ImageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onPressed,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         height: MediaQuery.of(context).size.height * 0.16,

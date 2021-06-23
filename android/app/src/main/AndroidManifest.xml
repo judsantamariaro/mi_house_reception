@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mi_house_reception">
    <application
-        android:label="mi_house_reception"
+        android:label="Mi House"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

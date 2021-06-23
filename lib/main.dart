@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:mi_house_reception/core/routes/routes.dart';
 import 'package:mi_house_reception/core/theme/light_theme.dart';
@@ -16,6 +17,7 @@ Future<void> main() async {
   setupDI();
   await Hive.initFlutter();
   await Hive.openBox('my_house');
+  await initializeDateFormatting();
   Intl.defaultLocale = 'es_CO';
   runApp(MyApp());
 }
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
         theme: CustomLightTheme.getTheme(),
         navigatorKey: appContext.context,
         debugShowCheckedModeBanner: false,
-        title: 'Material App',
+        title: 'Mi House',
         initialRoute: IndexScreen.route,
         routes: routes,
       ),

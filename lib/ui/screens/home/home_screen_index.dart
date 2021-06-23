@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mi_house_reception/ui/screens/home/home_reports_tab.dart';
 import 'package:mi_house_reception/ui/screens/home/home_tab.dart';
 import 'package:mi_house_reception/ui/screens/home/profile_tab.dart';
+import 'package:mi_house_reception/ui/screens/reservations/reservations_calendar.dart';
 
 class HomeScreenIndex extends StatefulWidget {
   const HomeScreenIndex({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class HomeScreenIndex extends StatefulWidget {
 
 class _HomeScreenIndexState extends State<HomeScreenIndex> {
   int index = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,14 +27,14 @@ class _HomeScreenIndexState extends State<HomeScreenIndex> {
           borderRadius: BorderRadius.circular(8),
           child: BottomNavigationBar(
             currentIndex: index,
-            onTap: (val) => setState(() => index = val),
+            onTap: updateHomeIndex,
             backgroundColor: Theme.of(context).primaryColor,
             unselectedItemColor: Colors.white.withOpacity(0.4),
             selectedIconTheme: const IconThemeData(color: Colors.white),
             selectedItemColor: Colors.white,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
-              BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'Reportes'),
+              BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'Reservas'),
               BottomNavigationBarItem(icon: Icon(Icons.face_sharp), label: 'Perfil'),
             ],
           ),
@@ -44,10 +46,20 @@ class _HomeScreenIndexState extends State<HomeScreenIndex> {
         index: index,
         children: [
           HomeTab(),
-          const ReportsTab(),
+          const ReservationsTab(),
           const ProfileTab(),
         ],
       ),
     );
+  }
+
+  void updateHomeIndex(int val) {
+    if (val == 1) {
+      Navigator.of(context).pushNamed(ReservationsCalendar.route);
+      return;
+    }
+    setState(() {
+      index = val;
+    });
   }
 }
