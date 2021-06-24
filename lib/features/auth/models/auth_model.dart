@@ -8,7 +8,7 @@ class AuthModel {
   final String username;
   final String nombres;
   final String apellidos;
-  final Conjunto conjunto;
+  final String conjunto;
   final List<Authorities> authorities;
 
   AuthModel({
@@ -28,21 +28,6 @@ class AuthModel {
   String toString() {
     return 'AuthModel(token: $token, username: $username, nombres: $nombres, apellidos: $apellidos, conjunto: $conjunto, authorities: $authorities)';
   }
-}
-
-@JsonSerializable()
-class Conjunto {
-  final int id;
-  final String nombre;
-  final String? direccion;
-
-  Conjunto({required this.id, required this.nombre, this.direccion});
-  factory Conjunto.fromJson(Map<String, dynamic> json) => _$ConjuntoFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ConjuntoToJson(this);
-
-  @override
-  String toString() => 'Conjunto(id: $id, nombre: $nombre, direccion: $direccion)';
 }
 
 @JsonSerializable()

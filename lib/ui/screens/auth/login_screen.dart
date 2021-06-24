@@ -84,9 +84,13 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 45,
                 child: ElevatedButton(
-                  onPressed: () => handleOnLogin(context),
+                  onPressed: Provider.of<AuthProvider>(context).isLoading
+                      ? () {}
+                      : () => handleOnLogin(context),
                   style: ElevatedButton.styleFrom(primary: Theme.of(context).primaryColor),
-                  child: const Text('Iniciar sesion'),
+                  child: Provider.of<AuthProvider>(context).isLoading
+                      ? const CircularProgressIndicator()
+                      : const Text('Iniciar sesion'),
                 ),
               ),
               const SizedBox(height: 10),

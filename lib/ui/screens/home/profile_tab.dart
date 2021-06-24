@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mi_house_reception/features/auth/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({Key? key}) : super(key: key);
@@ -36,14 +38,18 @@ class _ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context).auth!;
     final size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.3,
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 1)],
-        borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/wallpaper2.jpg'),
+          fit: BoxFit.cover,
+        ),
+        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 1, spreadRadius: 1)],
+        borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(15),
           bottomLeft: Radius.circular(15),
         ),
@@ -61,9 +67,9 @@ class _ProfileCard extends StatelessWidget {
             child: Image.asset('assets/icons/watchman.png'),
           ),
           const SizedBox(height: 10),
-          const Text(
-            'Sebastian Garzon',
-            style: TextStyle(color: Colors.white, fontSize: 28),
+          Text(
+            '${auth.nombres} ${auth.apellidos}',
+            style: const TextStyle(color: Colors.white, fontSize: 28),
           ),
         ],
       ),

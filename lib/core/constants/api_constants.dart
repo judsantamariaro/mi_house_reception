@@ -1,3 +1,3 @@
 class ApiConstants {
-  static const baseUrl = 'http://186.154.163.47:8080';
+  static const baseUrl = 'https://mi-house-api.herokuapp.com';
 }

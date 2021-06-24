@@ -7,11 +7,7 @@ import 'package:mi_house_reception/core/token/token.dart';
 import 'package:mi_house_reception/features/auth/models/auth_model.dart';
 import 'package:mi_house_reception/features/auth/models/login_model.dart';
 
-enum AuthStates {
-  initial,
-  authenticated,
-  notAuthenticated,
-}
+enum AuthStates { initial, authenticated, notAuthenticated }
 
 class AuthProvider extends ChangeNotifier {
   final HttpHandler httpHandler;
@@ -20,8 +16,8 @@ class AuthProvider extends ChangeNotifier {
 
   InitialRegisterArgs? initialRegisterArgs;
   AuthModel? auth;
-  //TODO: CHANGE FOR DEV PROPOUSES
-  AuthStates state = AuthStates.authenticated;
+
+  AuthStates state = AuthStates.notAuthenticated;
 
   AuthProvider({required this.token, required this.httpHandler});
 
@@ -37,8 +33,10 @@ class AuthProvider extends ChangeNotifier {
 
   Future<Failure?> login(LoginModel login) async {
     try {
+      startLoading();
       final res = await httpHandler.performPost('/login', login.toJson(), withToken: false);
       auth = AuthModel.fromJson(res);
+      stopLoading();
       token.saveToken(auth!.token);
       state = AuthStates.authenticated;
       notifyListeners();
@@ -46,10 +44,22 @@ class AuthProvider extends ChangeNotifier {
     } on Failure catch (e) {
       return e;
     } on SocketException catch (_) {
+      stopLoading();
       return Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
     } catch (e) {
+      stopLoading();
       return Failure(message: e.toString());
     }
+  }
+
+  void startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
+
+  void stopLoading() {
+    isLoading = false;
+    notifyListeners();
   }
 }
 
