@@ -47,7 +47,7 @@ class _HomeScreenIndexState extends State<HomeScreenIndex> {
         children: [
           HomeTab(),
           const ReservationsTab(),
-          const ProfileTab(),
+          ProfileTab(),
         ],
       ),
     );

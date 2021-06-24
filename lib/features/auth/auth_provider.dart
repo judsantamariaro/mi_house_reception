@@ -42,6 +42,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       return null;
     } on Failure catch (e) {
+      stopLoading();
       return e;
     } on SocketException catch (_) {
       stopLoading();
