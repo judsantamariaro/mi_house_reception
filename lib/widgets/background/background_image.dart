@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BackgroundImageWidget extends StatelessWidget {
-  const BackgroundImageWidget({Key? key, required this.child}) : super(key: key);
-
+  const BackgroundImageWidget({Key? key, required this.child, this.constrants}) : super(key: key);
+  final BoxConstraints? constrants;
   final Widget child;
 
   @override
@@ -26,6 +26,7 @@ class BackgroundImageWidget extends StatelessWidget {
             colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
           ),
         ),
+        constraints: constrants,
         child: child,
       ),
     );

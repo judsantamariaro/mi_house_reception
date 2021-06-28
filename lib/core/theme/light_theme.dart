@@ -10,6 +10,9 @@ class CustomLightTheme {
       accentColor: const Color(0xFFDA603E),
       appBarTheme: const AppBarTheme(centerTitle: true),
       inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: Color(0xFF4369CC),
+      ),
     );
   }
 }

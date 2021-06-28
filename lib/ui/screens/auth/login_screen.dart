@@ -44,6 +44,7 @@ class LoginScreen extends StatelessWidget {
                       validator: TextValidators.emailValidator,
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
+                      autofillHints: const [AutofillHints.email],
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.email, color: Colors.white70),
                         labelText: 'Correo electronico',
@@ -63,6 +64,7 @@ class LoginScreen extends StatelessWidget {
                       keyboardType: TextInputType.visiblePassword,
                       controller: _passwordController,
                       obscureText: true,
+                      autofillHints: const [AutofillHints.password],
                       style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.lock, color: Colors.white70),

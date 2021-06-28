@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mi_house_reception/dependency_injection.dart';
 import 'package:mi_house_reception/features/auth/auth_provider.dart';
+import 'package:mi_house_reception/features/reservations/reservation_provider.dart';
 import 'package:mi_house_reception/ui/screens/auth/index_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AuthProvider>(
           create: (ctx) => AuthProvider(httpHandler: di(), token: sl()),
+        ),
+        ChangeNotifierProvider<ReservationProvider>(
+          create: (ctx) => ReservationProvider(httpHandler: di()),
         ),
       ],
       child: MaterialApp(
