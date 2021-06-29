@@ -1,7 +1,11 @@
-// import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mi_house_reception/core/modals/modals.dart';
 import 'package:mi_house_reception/core/validators/text_validators.dart';
+import 'package:mi_house_reception/features/auth/auth_provider.dart';
+import 'package:mi_house_reception/features/residents/models/residents_model.dart';
+import 'package:mi_house_reception/features/residents/residents_provider.dart';
+import 'package:provider/provider.dart';
 
 class ResidentFormScreen extends StatefulWidget {
   const ResidentFormScreen({Key? key}) : super(key: key);
@@ -33,6 +37,10 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    final authProvider = Provider.of<AuthProvider>(context);
+    _nombreConjuntoController.text = authProvider.auth!.conjunto;
+
     return Scaffold(
       backgroundColor: const Color(0xff072863),
       appBar: AppBar(
@@ -213,7 +221,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               obscureText: _isObscure,
                               style: const TextStyle(color: Colors.white),
                               decoration: InputDecoration(
-                                prefixIconConstraints: const BoxConstraints(minWidth: 40, maxHeight: 50),
+                                prefixIconConstraints:
+                                    const BoxConstraints(minWidth: 40, maxHeight: 50),
                                 labelText: 'Contraseña',
                                 labelStyle: const TextStyle(color: Colors.white),
                                 enabledBorder: const OutlineInputBorder(
@@ -245,7 +254,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               obscureText: _isObscure,
                               style: const TextStyle(color: Colors.white),
                               decoration: InputDecoration(
-                                prefixIconConstraints: const BoxConstraints(minWidth: 40, maxHeight: 50),
+                                prefixIconConstraints:
+                                    const BoxConstraints(minWidth: 40, maxHeight: 50),
                                 labelText: 'Confirma tu contraseña',
                                 labelStyle: const TextStyle(color: Colors.white),
                                 enabledBorder: const OutlineInputBorder(
@@ -277,7 +287,7 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                                 ),
                                 primary: Colors.white,
                               ),
-                              onPressed: () {},
+                              onPressed: handleOnCreate,
                               child: Container(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 60.0, vertical: 13.0),
@@ -319,5 +329,40 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
       ),
       prefixIcon: iconprefix,
     );
+  }
+
+  Future<void> handleOnCreate() async {
+    if (_formController.currentState!.validate()) {
+      setState(() => isLoading = true);
+      final residentsModel = ResidentsModel(
+        tipoDoc: _nombreConjuntoController.text.trim(),
+        documento: _documentType!,
+        nombres: _nameController.text.trim(),
+        apellidos: _lastnameController.text.trim(),
+        fechaNac: _dateController.text.trim(),
+        nombreConjunto: _nombreConjuntoController.text.trim(),
+        apto: _apartmentController.text.trim(),
+        bloque: _blockController.text.trim(),
+        propietario: 'false',
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+        repeatPassword: _repeatPasswordController.text.trim(),
+      );
+      setState(() => isLoading = false);
+      final res = await Provider.of<ResidentsProvider>(context, listen: false)
+          .registerResident(residentsModel);
+      if (res != null) {
+        await CustomModals().showError(message: res.message);
+        Navigator.of(context).pop();
+        return;
+      }
+      CustomModals().showWellDone(
+        message: res!.message,
+        onPressed: (){
+          Navigator.of(context).pop();
+           print('Entre HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --------------------------------------------------------------------------------------------------');
+        }
+      );
+    }
   }
 }
