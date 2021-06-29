@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:mi_house_reception/core/failure/failure.dart';
 import 'package:mi_house_reception/core/modals/modals.dart';
 import 'package:mi_house_reception/core/requests/http_handler.dart';
+import 'package:mi_house_reception/features/reservations/models/create_reservation_model.dart';
 import 'package:mi_house_reception/features/reservations/models/reservation_model.dart';
 import 'package:mi_house_reception/features/reservations/models/reservation_response.dart';
 import 'package:mi_house_reception/features/reservations/models/space_reservation_model.dart';
@@ -55,6 +56,26 @@ class ReservationProvider extends ChangeNotifier {
       spaces = (res['data'] as Iterable)
           .map((e) => SpaceReservationResponse.fromJson(e as Map<String, dynamic>))
           .toList();
+      stopLoading();
+    } on Failure catch (e) {
+      failure = e;
+      stopLoading();
+    } on SocketException catch (_) {
+      failure = Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
+      stopLoading();
+    } catch (e) {
+      failure = Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
+      stopLoading();
+    }
+  }
+
+  Future<Failure?> createReservation(CreateReservationModel createReservationModel) async {
+    try {
+      startLoading();
+      await httpHandler.performPost(
+        '/reserva/nueva',
+        createReservationModel.toJson(),
+      );
       stopLoading();
     } on Failure catch (e) {
       failure = e;

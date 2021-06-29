@@ -6,7 +6,7 @@ class ReservationResponse {
   @JsonKey(name: 'fecha_inicio')
   final String fechaInicio;
   @JsonKey(name: 'fecha_fin')
-  final String fechaFin;
+  final String? fechaFin;
   final String nombreEspacio;
   final String tipoEspacio;
   final String nombreConjunto;

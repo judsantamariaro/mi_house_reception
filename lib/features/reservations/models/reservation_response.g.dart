@@ -9,7 +9,7 @@ part of 'reservation_response.dart';
 ReservationResponse _$ReservationResponseFromJson(Map<String, dynamic> json) {
   return ReservationResponse(
     fechaInicio: json['fecha_inicio'] as String,
-    fechaFin: json['fecha_fin'] as String,
+    fechaFin: json['fecha_fin'] as String?,
     nombreEspacio: json['nombreEspacio'] as String,
     tipoEspacio: json['tipoEspacio'] as String,
     nombreConjunto: json['nombreConjunto'] as String,
@@ -19,9 +19,7 @@ ReservationResponse _$ReservationResponseFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ReservationResponseToJson(
-        ReservationResponse instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ReservationResponseToJson(ReservationResponse instance) => <String, dynamic>{
       'fecha_inicio': instance.fechaInicio,
       'fecha_fin': instance.fechaFin,
       'nombreEspacio': instance.nombreEspacio,

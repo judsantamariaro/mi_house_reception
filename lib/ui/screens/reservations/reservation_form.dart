@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mi_house_reception/core/modals/modals.dart';
 import 'package:mi_house_reception/core/validators/text_validators.dart';
 import 'package:mi_house_reception/features/auth/auth_provider.dart';
+import 'package:mi_house_reception/features/reservations/models/create_reservation_model.dart';
 import 'package:mi_house_reception/features/reservations/models/space_reservation_model.dart';
 import 'package:mi_house_reception/features/reservations/models/space_reservation_response.dart';
 import 'package:mi_house_reception/features/reservations/reservation_provider.dart';
+import 'package:mi_house_reception/ui/screens/auth/index_screen.dart';
 import 'package:provider/provider.dart';
 
 class ReservationFormScreen extends StatefulWidget {
@@ -49,6 +52,7 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
         child: Form(
           key: _formController,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
               const SizedBox(
@@ -102,7 +106,7 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
                     context: context,
                     initialDate: resProv.selectedDate,
                     firstDate: resProv.selectedDate,
-                    lastDate: DateTime.now().add(const Duration(days: 8)),
+                    lastDate: resProv.selectedDate.add(const Duration(days: 8)),
                   );
                   if (date != null) {
                     _lastDateController.value = TextEditingValue(
@@ -120,6 +124,7 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
                     borderSide: BorderSide(color: Colors.black26, width: 1.8),
                   ),
                 ),
+                validator: TextValidators.textMandatoryValidator,
               ),
               const SizedBox(height: 15),
               resProv.isLoading
@@ -141,19 +146,40 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
                       items: resProv.spaces
                           .map((e) => DropdownMenuItem(
                                 value: e.nombre,
-                                child: Text(e.nombre),
+                                child: Flexible(
+                                  child: Text(
+                                    e.nombre,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
                               ))
                           .toList(),
                     ),
               const SizedBox(height: 15),
-              if (selectedSpace != null) ...[
-                Text('Nombre: ${selectedSpace!.nombre}'),
-                Text('Precio: ${selectedSpace!.precio}'),
-                Text('Aforo: ${selectedSpace!.aforo}'),
-                Text('Tipo: ${selectedSpace!.tipo}'),
-                Text('Conjunto: ${selectedSpace!.conjunto}'),
-                const SizedBox(height: 15),
-              ],
+              if (selectedSpace != null)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  alignment: Alignment.centerLeft,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 2)],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Informacion del espacio: ',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      Text('Precio: ${selectedSpace!.precio}'),
+                      Text('Aforo: ${selectedSpace!.aforo}'),
+                      Text('Tipo: ${selectedSpace!.tipo}'),
+                      Text('Conjunto: ${selectedSpace!.conjunto}'),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -165,12 +191,43 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
               SizedBox(
                 width: double.maxFinite,
                 height: 45,
-                child: ElevatedButton(onPressed: () {}, child: const Text('Reservar')),
+                child: ElevatedButton(
+                  onPressed: resProv.isLoading ? () {} : handleOnReserve,
+                  child: resProv.isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : const Text('Reservar'),
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> handleOnReserve() async {
+    if (!_formController.currentState!.validate()) {
+      return;
+    }
+    if (_lastDateController.text.trim().isEmpty) {
+      await CustomModals().showError(message: 'Revisa la fecha de entrega');
+      return;
+    }
+    final res = await Provider.of<ReservationProvider>(context, listen: false).createReservation(
+      CreateReservationModel(
+        fechaInicio: DateTime.parse(_initialDateController.text),
+        fechaFinal: DateTime.parse(_lastDateController.text),
+        pago: isPaid,
+        usuario: _emailController.text.trim(),
+        conjunto: _conjuntoController.text.trim(),
+        espacio: selectedSpace!.nombre,
+      ),
+    );
+    if (res == null) {
+      await CustomModals().showWellDone(message: 'Reserva creada con exito');
+      Navigator.of(context).popUntil(ModalRoute.withName(IndexScreen.route));
+    } else {
+      await CustomModals().showError(message: res.message);
+    }
   }
 }
