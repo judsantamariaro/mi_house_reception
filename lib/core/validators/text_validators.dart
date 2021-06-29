@@ -1,8 +1,6 @@
-
-
 class TextValidators {
   static String? emailValidator(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
       return 'Ingresa tu correo electronico';
     }
     if (_validateEmail(value)) {
@@ -12,7 +10,7 @@ class TextValidators {
   }
 
   static String? documentValidator(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
       return 'Ingresa tu numero de identificacion';
     } else if (value.length < 6) {
       return 'Revisa numero de identificacion';
@@ -21,7 +19,7 @@ class TextValidators {
   }
 
   static String? passwordValidator(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
       return 'Ingresa tu contraseña';
     }
     if (value.length < 6) {
@@ -30,28 +28,28 @@ class TextValidators {
     return null;
   }
 
-  static String? confirmPassword(String? password, String? password2){
+  static String? confirmPassword(String? password, String? password2) {
     if (password!.isEmpty) {
       return 'Ingresa tu contraseña';
     }
     if (password.length < 6) {
       return 'La contraseña debe tener 6 o mas caracteres';
     }
-    if (password != password2){
+    if (password != password2) {
       return 'Las contraseñas no coinciden';
     }
     return null;
   }
 
   static String? nameValidator(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
       return 'Ingresa tus nombres';
     }
     return null;
   }
 
   static String? phoneValidator(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
       return 'Ingresa numero de telefono';
     }
     if (value.length < 10) {
@@ -61,14 +59,21 @@ class TextValidators {
   }
 
   static String? neighborhoodValidator(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
       return 'Ingresa tu barrio';
     }
     return null;
   }
 
   static String? textMandatoryValidator(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
+      return 'Este campo no debe ir vacio';
+    }
+    return null;
+  }
+
+  static String? optionMandatoryValidator(int? value) {
+    if (value == null) {
       return 'Este campo no debe ir vacio';
     }
     return null;

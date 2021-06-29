@@ -13,6 +13,9 @@ class CustomLightTheme {
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Color(0xFF4369CC),
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(primary: const Color(0xFF4369CC)),
+      ),
     );
   }
 }

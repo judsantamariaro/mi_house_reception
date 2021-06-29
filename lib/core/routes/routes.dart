@@ -6,5 +6,5 @@ import 'package:mi_house_reception/ui/screens/reservations/reservations_calendar
 Map<String, Widget Function(BuildContext)> routes = {
   IndexScreen.route: (ctx) => const IndexScreen(),
   ReservationsCalendar.route: (ctx) => const ReservationsCalendar(),
-  ReservationFormScreen.route: (ctx) => ReservationFormScreen(),
+  ReservationFormScreen.route: (ctx) => const ReservationFormScreen(),
 };

@@ -7,6 +7,8 @@ import 'package:mi_house_reception/core/modals/modals.dart';
 import 'package:mi_house_reception/core/requests/http_handler.dart';
 import 'package:mi_house_reception/features/reservations/models/reservation_model.dart';
 import 'package:mi_house_reception/features/reservations/models/reservation_response.dart';
+import 'package:mi_house_reception/features/reservations/models/space_reservation_model.dart';
+import 'package:mi_house_reception/features/reservations/models/space_reservation_response.dart';
 
 class ReservationProvider extends ChangeNotifier {
   ReservationProvider({required this.httpHandler});
@@ -14,6 +16,7 @@ class ReservationProvider extends ChangeNotifier {
   bool isLoading = false;
   final modals = CustomModals();
   List<ReservationResponse> reservations = [];
+  List<SpaceReservationResponse> spaces = [];
   Failure? failure;
   DateTime selectedDate = DateTime.now();
 
@@ -26,10 +29,33 @@ class ReservationProvider extends ChangeNotifier {
     try {
       startLoading();
       final res = await httpHandler.performPost('/reserva/lista-reservas', reservation.toJson());
-      stopLoading();
       reservations = (res['data'] as Iterable)
           .map((e) => ReservationResponse.fromJson(e as Map<String, dynamic>))
           .toList();
+      stopLoading();
+    } on Failure catch (e) {
+      failure = e;
+      stopLoading();
+    } on SocketException catch (_) {
+      failure = Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
+      stopLoading();
+    } catch (e) {
+      failure = Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
+      stopLoading();
+    }
+  }
+
+  Future<void> fetchSpaceReservations(SpaceReservationModel spaceReservationModel) async {
+    try {
+      startLoading();
+      final res = await httpHandler.performPost(
+        '/conjunto/listaEspacios',
+        spaceReservationModel.toJson(),
+      );
+      spaces = (res['data'] as Iterable)
+          .map((e) => SpaceReservationResponse.fromJson(e as Map<String, dynamic>))
+          .toList();
+      stopLoading();
     } on Failure catch (e) {
       failure = e;
       stopLoading();
