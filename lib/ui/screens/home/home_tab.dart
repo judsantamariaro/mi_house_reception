@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:mi_house_reception/features/ui/models/home_menu.dart';
 import 'package:mi_house_reception/ui/widgets/appbar/custom_appbar.dart';
 import 'package:mi_house_reception/ui/widgets/cards/image_card.dart';
+import 'package:mi_house_reception/ui/screens/resident/resident_form.dart';
 
 class HomeTab extends StatelessWidget {
-  HomeTab({Key? key}) : super(key: key);
-
-  final List<HomeMenu> cards = [
-    HomeMenu(text: 'Visitantes', imgPath: 'assets/image_cards/1.jpg', onTap: () {}),
-    HomeMenu(text: 'Parqueaderos', imgPath: 'assets/image_cards/2.jpg', onTap: () {}),
-    HomeMenu(text: 'Novedades', imgPath: 'assets/image_cards/3.jpg', onTap: () {}),
-    HomeMenu(text: 'Crear una alerta', imgPath: 'assets/image_cards/4.jpg', onTap: () {}),
-  ];
+  const HomeTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final List<HomeMenu> cards = [
+      HomeMenu(text: 'Control de Residentes', imgPath: 'assets/image_cards/1.jpg', onTap: () => Navigator.of(context).pushNamed(ResidentFormScreen.route)),
+      HomeMenu(text: 'Parqueaderos', imgPath: 'assets/image_cards/2.jpg', onTap: () {}),
+      HomeMenu(text: 'Novedades', imgPath: 'assets/image_cards/3.jpg', onTap: () {}),
+      HomeMenu(text: 'Crear una alerta', imgPath: 'assets/image_cards/4.jpg', onTap: () {}),
+    ];
     return Scaffold(
       body: SafeArea(
         child: Padding(
