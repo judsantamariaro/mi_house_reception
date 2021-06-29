@@ -5,11 +5,14 @@ import 'package:intl/intl.dart';
 import 'package:mi_house_reception/core/failure/failure.dart';
 import 'package:mi_house_reception/core/modals/modals.dart';
 import 'package:mi_house_reception/core/requests/http_handler.dart';
+import 'package:mi_house_reception/features/auth/auth_provider.dart';
+import 'package:mi_house_reception/features/moving/moving_model.dart';
 import 'package:mi_house_reception/features/reservations/models/create_reservation_model.dart';
 import 'package:mi_house_reception/features/reservations/models/reservation_model.dart';
 import 'package:mi_house_reception/features/reservations/models/reservation_response.dart';
 import 'package:mi_house_reception/features/reservations/models/space_reservation_model.dart';
 import 'package:mi_house_reception/features/reservations/models/space_reservation_response.dart';
+import 'package:provider/provider.dart';
 
 class ReservationProvider extends ChangeNotifier {
   ReservationProvider({required this.httpHandler});
@@ -24,6 +27,11 @@ class ReservationProvider extends ChangeNotifier {
   void onSelectedDateChanged(DateTime date) {
     selectedDate = date;
     notifyListeners();
+  }
+
+  List<ReservationResponse> getReservations(BuildContext context) {
+    final username = Provider.of<AuthProvider>(context, listen: false).auth!.username;
+    return reservations.where((e) => e.nombreEspacio == 'Mudanza' && e.email == username).toList();
   }
 
   Future<void> fetchReservations(ReservationModel reservation) async {
@@ -72,10 +80,24 @@ class ReservationProvider extends ChangeNotifier {
   Future<Failure?> createReservation(CreateReservationModel createReservationModel) async {
     try {
       startLoading();
-      await httpHandler.performPost(
-        '/reserva/nueva',
-        createReservationModel.toJson(),
-      );
+      await httpHandler.performPost('/reserva/nueva', createReservationModel.toJson());
+      stopLoading();
+    } on Failure catch (e) {
+      failure = e;
+      stopLoading();
+    } on SocketException catch (_) {
+      failure = Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
+      stopLoading();
+    } catch (e) {
+      failure = Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
+      stopLoading();
+    }
+  }
+
+  Future<Failure?> createMoving(MovingModel movingModel) async {
+    try {
+      startLoading();
+      await httpHandler.performPost('/reserva/mudanza', movingModel.toJson());
       stopLoading();
     } on Failure catch (e) {
       failure = e;

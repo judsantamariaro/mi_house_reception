@@ -45,7 +45,7 @@ class _HomeScreenIndexState extends State<HomeScreenIndex> {
       body: IndexedStack(
         index: index,
         children: [
-          HomeTab(),
+          const HomeTab(),
           const ReservationsTab(),
           ProfileTab(),
         ],
