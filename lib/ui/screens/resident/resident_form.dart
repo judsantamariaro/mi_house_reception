@@ -42,16 +42,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
     _nombreConjuntoController.text = authProvider.auth!.conjunto;
 
     return Scaffold(
-      backgroundColor: const Color(0xff072863),
-      appBar: AppBar(
-        title: const Text(
-          'HOLA VIDA',
-          style: TextStyle(
-            color: Color(0xff072863),
-          ),
-        ),
-        backgroundColor: Colors.white,
-      ),
+      backgroundColor: const Color(0xffffffff),
+      appBar: AppBar(title: const Text('Anadir Residente')),
       body: Stack(
         children: <Widget>[
           SingleChildScrollView(
@@ -69,18 +61,17 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                           children: [
                             const SizedBox(height: 20.0),
                             DropdownButtonFormField(
-                              dropdownColor: const Color(0xff0C3C92),
-                              style: const TextStyle(color: Colors.white),
+                              dropdownColor: const Color(0xffffffff),
+                              style: const TextStyle(color: Colors.black),
                               value: _documentType,
-                              // style: TextStyle(color: Colors.white),
+                              // style: TextStyle(color: Colors.black),
                               decoration: decoration(
-                                'Tipo de documento',
+                                '  Tipo de documento',
                                 const FaIcon(
-                                  FontAwesomeIcons.addressCard,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.addressCard, textDirection: TextDirection.rtl
                                 ),
                               ),
-                              icon: const Icon(Icons.arrow_downward_rounded, color: Colors.white),
+                              icon: const Icon(Icons.arrow_downward_rounded, color: Colors.black26),
                               onChanged: (String? newValue) =>
                                   setState(() => _documentType = newValue),
                               items:
@@ -98,12 +89,11 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               controller: _documentController,
                               validator: TextValidators.documentValidator,
                               keyboardType: TextInputType.number,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: decoration(
-                                'Numero de Documento',
+                                '  Numero de Documento',
                                 const FaIcon(
-                                  FontAwesomeIcons.idCard,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.idCard, textDirection: TextDirection.rtl
                                 ),
                               ),
                             ),
@@ -112,12 +102,11 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               controller: _nameController,
                               validator: TextValidators.nameValidator,
                               keyboardType: TextInputType.name,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: decoration(
-                                'Nombres',
+                                '  Nombres',
                                 const FaIcon(
-                                  FontAwesomeIcons.userAlt,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.userAlt, textDirection: TextDirection.rtl
                                 ),
                               ),
                             ),
@@ -126,24 +115,22 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               controller: _lastnameController,
                               validator: TextValidators.nameValidator,
                               keyboardType: TextInputType.name,
-                              style: const TextStyle(color: Colors.white),
-                              decoration: decoration(
-                                'Apellidos',
+                              style: const TextStyle(color: Colors.black),
+                              decoration: decoration( 
+                                '  Apellidos',
                                 const FaIcon(
-                                  FontAwesomeIcons.user,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.user, textDirection: TextDirection.rtl
                                 ),
                               ),
                             ),
                             const SizedBox(height: 20.0),
                             TextFormField(
                               controller: _dateController,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: decoration(
-                                'Fecha de Nacimiento',
+                                '  Fecha de Nacimiento',
                                 const FaIcon(
-                                  FontAwesomeIcons.calendarAlt,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.calendarAlt, textDirection: TextDirection.rtl
                                 ),
                               ),
                               onTap: () async {
@@ -164,12 +151,11 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               controller: _nombreConjuntoController,
                               validator: TextValidators.textMandatoryValidator,
                               keyboardType: TextInputType.name,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: decoration(
-                                'Nombre del Conjunto',
+                                '  Nombre del Conjunto',
                                 const FaIcon(
-                                  FontAwesomeIcons.city,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.city, textDirection: TextDirection.rtl
                                 ),
                               ),
                             ),
@@ -177,12 +163,11 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                             TextFormField(
                               controller: _apartmentController,
                               keyboardType: TextInputType.number,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: decoration(
-                                'Apartamento',
+                                '  Apartamento',
                                 const FaIcon(
-                                  FontAwesomeIcons.key,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.key, textDirection: TextDirection.rtl
                                 ),
                               ),
                             ),
@@ -190,12 +175,11 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                             TextFormField(
                               controller: _blockController,
                               keyboardType: TextInputType.number,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: decoration(
-                                'Bloque',
+                                '  Bloque',
                                 const FaIcon(
-                                  FontAwesomeIcons.solidBuilding,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.solidBuilding, textDirection: TextDirection.rtl
                                 ),
                               ),
                             ),
@@ -204,12 +188,11 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               controller: _emailController,
                               validator: TextValidators.emailValidator,
                               keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: decoration(
-                                'Correo',
+                                '  Correo',
                                 const FaIcon(
-                                  FontAwesomeIcons.solidEnvelope,
-                                  color: Colors.white,
+                                  FontAwesomeIcons.solidEnvelope, textDirection: TextDirection.rtl,
                                 ),
                               ),
                             ),
@@ -219,20 +202,21 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               validator: TextValidators.passwordValidator,
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: _isObscure,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                 prefixIconConstraints:
-                                    const BoxConstraints(minWidth: 40, maxHeight: 50),
-                                labelText: 'Contraseña',
-                                labelStyle: const TextStyle(color: Colors.white),
+                                  const BoxConstraints(minWidth: 30, maxHeight: 50),
+                                labelText: '  Contraseña',
+                                labelStyle: const TextStyle(color: Colors.black),
                                 enabledBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide: BorderSide(color: Colors.black26),
                                 ),
                                 focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide: BorderSide(color: Colors.black26),
                                 ),
+                                
                                 prefixIcon:
-                                    const FaIcon(FontAwesomeIcons.lock, color: Colors.white),
+                                  const FaIcon(FontAwesomeIcons.lock, textDirection: TextDirection.rtl,),     
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
@@ -241,31 +225,36 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                                   },
                                   icon: Icon(
                                     _isObscure ? Icons.visibility : Icons.visibility_off,
-                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
                             const SizedBox(height: 20.0),
                             TextFormField(
+                              // textAlign: TextAlign(2),
                               controller: _repeatPasswordController,
                               validator: TextValidators.passwordValidator,
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: _isObscure,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
+                                // isDense: true,
+                                // contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                
                                 prefixIconConstraints:
-                                    const BoxConstraints(minWidth: 40, maxHeight: 50),
-                                labelText: 'Confirma tu contraseña',
-                                labelStyle: const TextStyle(color: Colors.white),
+                                    const BoxConstraints(minWidth: 30, maxHeight: 50),
+                                labelText: '  Confirma tu contraseña',
+                                labelStyle: const TextStyle(color: Colors.black),
                                 enabledBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide: BorderSide(color: Colors.black26),
                                 ),
                                 focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
+                                  borderSide: BorderSide(color: Colors.black26),
+                                  
                                 ),
                                 prefixIcon:
-                                    const FaIcon(FontAwesomeIcons.lock, color: Colors.white),
+                                
+                                  const FaIcon(FontAwesomeIcons.lock, textDirection: TextDirection.rtl,),
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
@@ -274,33 +263,37 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                                   },
                                   icon: Icon(
                                     _isObscure ? Icons.visibility : Icons.visibility_off,
-                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
                             const SizedBox(height: 30.0),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100.0),
-                                ),
-                                primary: Colors.white,
-                              ),
-                              onPressed: handleOnCreate,
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 60.0, vertical: 13.0),
-                                child: isLoading
-                                    ? const Center(child: CircularProgressIndicator())
-                                    : const Text(
-                                        'Registrar',
-                                        style: TextStyle(
-                                            color: Color(0xff0C3C92),
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                              ),
+                            // ElevatedButton(
+                            //   style: ElevatedButton.styleFrom(
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(100.0),
+                            //     ),
+                            //     primary: Colors.black26,
+                            //   ),
+                            //   onPressed: handleOnCreate,
+                            //   child: Container(
+                            //     padding:
+                            //         const EdgeInsets.symmetric(horizontal: 60.0, vertical: 13.0),
+                            //     child: isLoading
+                            //         ? const Center(child: CircularProgressIndicator())
+                            //         : const Text(
+                            //             'Registrar',
+                            //             style: TextStyle(
+                            //                 color: Color(0xff0C3C92),
+                            //                 fontSize: 18.0,
+                            //                 fontWeight: FontWeight.bold),
+                            //           ),
+                            //   ),
+                            // ),
+                            SizedBox(
+                              width: double.maxFinite,
+                              height: 45,
+                              child: ElevatedButton(onPressed: handleOnCreate, child: const Text('Registrar')),
                             ),
                           ],
                         ),
@@ -318,14 +311,14 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
 
   InputDecoration decoration(String labeltextinput, FaIcon iconprefix) {
     return InputDecoration(
-      prefixIconConstraints: const BoxConstraints(minWidth: 40, maxHeight: 50),
+      prefixIconConstraints: const BoxConstraints(minWidth: 30, maxHeight: 50),
       labelText: labeltextinput,
-      labelStyle: const TextStyle(color: Colors.white),
+      labelStyle: const TextStyle(color: Colors.black),
       enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.white),
+        borderSide: BorderSide(color: Colors.black26),
       ),
       focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.white),
+        borderSide: BorderSide(color: Colors.black26),
       ),
       prefixIcon: iconprefix,
     );
