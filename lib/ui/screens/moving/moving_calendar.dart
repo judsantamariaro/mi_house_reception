@@ -109,19 +109,33 @@ class MovingList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final spaces = Provider.of<ReservationProvider>(context).getReservations(context);
+    final resProv = Provider.of<ReservationProvider>(context);
+    final spaces = resProv.getReservations(context);
     return ListView.separated(
       separatorBuilder: (_, __) => const SizedBox(height: 5),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       itemCount: spaces.length,
       itemBuilder: (context, i) {
         final res = spaces[i];
-        return Card(
-          child: ListTile(
-            title: Text(res.nombreEspacio),
-            subtitle: Text(res.tipoEspacio),
-            onTap: () {},
-            trailing: const Icon(Icons.chevron_right),
+        return Dismissible(
+          key: Key('${res.id}${res.fechaInicio}'),
+          background: Card(
+            color: Colors.red,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              alignment: Alignment.centerRight,
+              child: const Icon(Icons.delete, color: Colors.white),
+            ),
+          ),
+          child: Card(
+            child: ListTile(
+              title: Text(res.nombreEspacio),
+              subtitle: Text(res.tipoEspacio),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () {},
+              ),
+            ),
           ),
         );
       },

@@ -13,6 +13,7 @@ class ReservationResponse {
   final String nombreUsuario;
   final String email;
   final bool pago;
+  final int id;
 
   ReservationResponse({
     required this.fechaInicio,
@@ -23,6 +24,7 @@ class ReservationResponse {
     required this.nombreUsuario,
     required this.email,
     required this.pago,
+    required this.id,
   });
 
   factory ReservationResponse.fromJson(Map<String, dynamic> json) =>

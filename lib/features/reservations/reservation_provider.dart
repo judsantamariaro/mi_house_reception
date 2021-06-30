@@ -111,6 +111,23 @@ class ReservationProvider extends ChangeNotifier {
     }
   }
 
+  Future<Failure?> deleteMoving(MovingModel movingModel) async {
+    try {
+      startLoading();
+      await httpHandler.performPost('/reserva/mudanza', movingModel.toJson());
+      stopLoading();
+    } on Failure catch (e) {
+      failure = e;
+      stopLoading();
+    } on SocketException catch (_) {
+      failure = Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
+      stopLoading();
+    } catch (e) {
+      failure = Failure(message: 'Ha ocurrido un problema, intentalo mas tarde');
+      stopLoading();
+    }
+  }
+
   void startLoading() {
     isLoading = true;
     failure = null;

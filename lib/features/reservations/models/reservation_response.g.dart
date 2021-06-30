@@ -16,10 +16,13 @@ ReservationResponse _$ReservationResponseFromJson(Map<String, dynamic> json) {
     nombreUsuario: json['nombreUsuario'] as String,
     email: json['email'] as String,
     pago: json['pago'] as bool,
+    id: json['id'] as int,
   );
 }
 
-Map<String, dynamic> _$ReservationResponseToJson(ReservationResponse instance) => <String, dynamic>{
+Map<String, dynamic> _$ReservationResponseToJson(
+        ReservationResponse instance) =>
+    <String, dynamic>{
       'fecha_inicio': instance.fechaInicio,
       'fecha_fin': instance.fechaFin,
       'nombreEspacio': instance.nombreEspacio,
@@ -28,4 +31,5 @@ Map<String, dynamic> _$ReservationResponseToJson(ReservationResponse instance) =
       'nombreUsuario': instance.nombreUsuario,
       'email': instance.email,
       'pago': instance.pago,
+      'id': instance.id,
     };
