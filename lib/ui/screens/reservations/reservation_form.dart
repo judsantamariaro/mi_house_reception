@@ -34,11 +34,21 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
       final authProv = Provider.of<AuthProvider>(context, listen: false).auth;
       final resProv = Provider.of<ReservationProvider>(context, listen: false);
       resProv.fetchSpaceReservations(SpaceReservationModel(nombreConjunto: authProv!.conjunto));
-      final selectedDate = resProv.selectedDate;
       _emailController.value = TextEditingValue(text: authProv.username);
       _conjuntoController.value = TextEditingValue(text: authProv.conjunto);
       _initialDateController.value =
-          TextEditingValue(text: ReservationUtils.getFormattedDate(selectedDate));
+          TextEditingValue(text: ReservationUtils.getFormattedDate(resProv.selectedDate));
+      if (resProv.selectedReservation != null) {
+        _initialDateController.text = ReservationUtils.getFormattedDate(
+          DateTime.parse(resProv.selectedReservation!.fechaInicio),
+        );
+        _lastDateController.text = ReservationUtils.getFormattedDate(
+          DateTime.parse(
+            resProv.selectedReservation!.fechaFin ?? resProv.selectedReservation!.fechaInicio,
+          ),
+        );
+        isPaid = resProv.selectedReservation!.pago;
+      }
     });
   }
 
@@ -46,7 +56,8 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
   Widget build(BuildContext context) {
     final resProv = Provider.of<ReservationProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Crear reserva')),
+      appBar: AppBar(
+          title: Text(resProv.selectedReservation == null ? 'Crear reserva' : 'Editar reserva')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Form(
@@ -55,11 +66,13 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
                 child: Text(
-                  'Llena los datos para realizar la reserva:',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  resProv.selectedReservation == null
+                      ? 'Llena los datos para crear la reserva:'
+                      : 'Llena los datos para editar la reserva:',
+                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
               ),
               const SizedBox(height: 20),
@@ -188,16 +201,38 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
                 ],
               ),
               const SizedBox(height: 15),
-              SizedBox(
-                width: double.maxFinite,
-                height: 45,
-                child: ElevatedButton(
-                  onPressed: resProv.isLoading ? () {} : handleOnReserve,
-                  child: resProv.isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : const Text('Reservar'),
-                ),
-              ),
+              resProv.selectedReservation == null
+                  ? SizedBox(
+                      width: double.maxFinite,
+                      height: 45,
+                      child: ElevatedButton(
+                        onPressed: resProv.isLoading ? () {} : handleOnReserve,
+                        child: resProv.isLoading
+                            ? const Center(child: CircularProgressIndicator())
+                            : const Text('Reservar'),
+                      ),
+                    )
+                  : Column(
+                      children: [
+                        SizedBox(
+                          width: double.maxFinite,
+                          height: 45,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Actualizar'),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: double.maxFinite,
+                          height: 45,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Eliminar'),
+                          ),
+                        ),
+                      ],
+                    ),
             ],
           ),
         ),
@@ -206,6 +241,58 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
   }
 
   Future<void> handleOnReserve() async {
+    if (!_formController.currentState!.validate()) {
+      return;
+    }
+    if (_lastDateController.text.trim().isEmpty) {
+      await CustomModals().showError(message: 'Revisa la fecha de entrega');
+      return;
+    }
+    final res = await Provider.of<ReservationProvider>(context, listen: false).createReservation(
+      CreateReservationModel(
+        fechaInicio: DateTime.parse(_initialDateController.text).add(const Duration(hours: 10)),
+        fechaFinal: DateTime.parse(_lastDateController.text).add(const Duration(hours: 12)),
+        pago: isPaid,
+        usuario: _emailController.text.trim(),
+        conjunto: _conjuntoController.text.trim(),
+        espacio: selectedSpace!.nombre,
+      ),
+    );
+    if (res == null) {
+      await CustomModals().showWellDone(message: 'Reserva creada con exito');
+      Navigator.of(context).popUntil(ModalRoute.withName(IndexScreen.route));
+    } else {
+      await CustomModals().showError(message: res.message);
+    }
+  }
+
+  Future<void> handleOnUpdate() async {
+    if (!_formController.currentState!.validate()) {
+      return;
+    }
+    if (_lastDateController.text.trim().isEmpty) {
+      await CustomModals().showError(message: 'Revisa la fecha de entrega');
+      return;
+    }
+    final res = await Provider.of<ReservationProvider>(context, listen: false).createReservation(
+      CreateReservationModel(
+        fechaInicio: DateTime.parse(_initialDateController.text).add(const Duration(hours: 10)),
+        fechaFinal: DateTime.parse(_lastDateController.text).add(const Duration(hours: 12)),
+        pago: isPaid,
+        usuario: _emailController.text.trim(),
+        conjunto: _conjuntoController.text.trim(),
+        espacio: selectedSpace!.nombre,
+      ),
+    );
+    if (res == null) {
+      await CustomModals().showWellDone(message: 'Reserva creada con exito');
+      Navigator.of(context).popUntil(ModalRoute.withName(IndexScreen.route));
+    } else {
+      await CustomModals().showError(message: res.message);
+    }
+  }
+
+  Future<void> handleOnDelete() async {
     if (!_formController.currentState!.validate()) {
       return;
     }

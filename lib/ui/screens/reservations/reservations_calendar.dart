@@ -41,7 +41,10 @@ class _ReservationsCalendarState extends State<ReservationsCalendar> {
       floatingActionButton: reservationsProv.isLoading
           ? null
           : FloatingActionButton(
-              onPressed: () => Navigator.of(context).pushNamed(ReservationFormScreen.route),
+              onPressed: () {
+                reservationsProv.cleanSelectedReservation();
+                Navigator.of(context).pushNamed(ReservationFormScreen.route);
+              },
               child: const Icon(Icons.add),
             ),
       body: Column(
@@ -111,7 +114,8 @@ class ReservationsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final reservations = Provider.of<ReservationProvider>(context).getFilteredReservations();
+    final resProv = Provider.of<ReservationProvider>(context);
+    final reservations = resProv.getFilteredReservations();
     final authProvider = Provider.of<AuthProvider>(context);
     return ListView.separated(
       separatorBuilder: (_, __) => const SizedBox(height: 5),
@@ -123,7 +127,10 @@ class ReservationsList extends StatelessWidget {
           child: ListTile(
             title: Text(res.nombreEspacio),
             subtitle: Text(res.tipoEspacio),
-            onTap: () {},
+            onTap: () {
+              resProv.onSelectedReservation(res);
+              Navigator.of(context).pushNamed(ReservationFormScreen.route);
+            },
             trailing:
                 res.email == authProvider.auth!.username ? const Icon(Icons.chevron_right) : null,
           ),

@@ -23,9 +23,21 @@ class ReservationProvider extends ChangeNotifier {
   List<SpaceReservationResponse> spaces = [];
   Failure? failure;
   DateTime selectedDate = DateTime.now();
+  ReservationResponse? selectedReservation;
 
   void onSelectedDateChanged(DateTime date) {
+    selectedReservation = null;
     selectedDate = date;
+    notifyListeners();
+  }
+
+  void onSelectedReservation(ReservationResponse reservationResponse) {
+    selectedReservation = reservationResponse;
+    notifyListeners();
+  }
+
+  void cleanSelectedReservation() {
+    selectedReservation = null;
     notifyListeners();
   }
 
@@ -40,6 +52,7 @@ class ReservationProvider extends ChangeNotifier {
 
   Future<void> fetchReservations(ReservationModel reservation) async {
     try {
+      selectedReservation = null;
       startLoading();
       final res = await httpHandler.performPost('/reserva/lista-reservas', reservation.toJson());
       reservations = (res['data'] as Iterable)
