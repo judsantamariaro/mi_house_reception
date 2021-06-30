@@ -9,6 +9,8 @@ class AuthModel {
   final String nombres;
   final String apellidos;
   final String conjunto;
+  final String apto;
+  final String bloque;
   final List<Authorities> authorities;
 
   AuthModel({
@@ -17,6 +19,8 @@ class AuthModel {
     required this.nombres,
     required this.apellidos,
     required this.conjunto,
+    required this.apto,
+    required this.bloque,
     required this.authorities,
   });
 
@@ -26,7 +30,7 @@ class AuthModel {
 
   @override
   String toString() {
-    return 'AuthModel(token: $token, username: $username, nombres: $nombres, apellidos: $apellidos, conjunto: $conjunto, authorities: $authorities)';
+    return 'AuthModel(token: $token, username: $username, nombres: $nombres, apellidos: $apellidos, conjunto: $conjunto, apto:$apto, bloque: $bloque, authorities: $authorities)';
   }
 }
 

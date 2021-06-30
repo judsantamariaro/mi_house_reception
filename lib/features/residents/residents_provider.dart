@@ -8,16 +8,14 @@ import 'package:mi_house_reception/features/residents/models/residents_model.dar
 
 class ResidentsProvider extends ChangeNotifier {
   final HttpHandler httpHandler;
-  final Token token;
 
-  ResidentsProvider({required this.httpHandler, required this.token});
+  ResidentsProvider({required this.httpHandler});
 
   Future<Failure?> registerResident(ResidentsModel residentsModel) async {
     try {
       await httpHandler.performPost(
-        'registro/residente',
+        '/registro/residente',
         residentsModel.toJson(),
-        withToken: false,
       );
       notifyListeners();
       return null;

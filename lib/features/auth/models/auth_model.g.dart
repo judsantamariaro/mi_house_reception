@@ -13,6 +13,8 @@ AuthModel _$AuthModelFromJson(Map<String, dynamic> json) {
     nombres: json['nombres'] as String,
     apellidos: json['apellidos'] as String,
     conjunto: json['conjunto'] as String,
+    apto: json['apto'] as String,
+    bloque: json['bloque'] as String,
     authorities: (json['authorities'] as List<dynamic>)
         .map((e) => Authorities.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -25,6 +27,8 @@ Map<String, dynamic> _$AuthModelToJson(AuthModel instance) => <String, dynamic>{
       'nombres': instance.nombres,
       'apellidos': instance.apellidos,
       'conjunto': instance.conjunto,
+      'apto': instance.apto,
+      'bloque': instance.bloque,
       'authorities': instance.authorities,
     };
 

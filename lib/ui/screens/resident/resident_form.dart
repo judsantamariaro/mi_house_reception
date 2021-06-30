@@ -40,10 +40,12 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
 
     final authProvider = Provider.of<AuthProvider>(context);
     _nombreConjuntoController.text = authProvider.auth!.conjunto;
+    _apartmentController.text = authProvider.auth!.apto;
+    _blockController.text = authProvider.auth!.bloque;
 
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
-      appBar: AppBar(title: const Text('Anadir Residente')),
+      appBar: AppBar(title: const Text('Añadir Residente')),
       body: Stack(
         children: <Widget>[
           SingleChildScrollView(
@@ -67,9 +69,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               // style: TextStyle(color: Colors.black),
                               decoration: decoration(
                                 '  Tipo de documento',
-                                const FaIcon(
-                                  FontAwesomeIcons.addressCard, textDirection: TextDirection.rtl
-                                ),
+                                const FaIcon(FontAwesomeIcons.addressCard,
+                                    textDirection: TextDirection.rtl),
                               ),
                               icon: const Icon(Icons.arrow_downward_rounded, color: Colors.black26),
                               onChanged: (String? newValue) =>
@@ -92,9 +93,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               style: const TextStyle(color: Colors.black),
                               decoration: decoration(
                                 '  Numero de Documento',
-                                const FaIcon(
-                                  FontAwesomeIcons.idCard, textDirection: TextDirection.rtl
-                                ),
+                                const FaIcon(FontAwesomeIcons.idCard,
+                                    textDirection: TextDirection.rtl),
                               ),
                             ),
                             const SizedBox(height: 20.0),
@@ -105,9 +105,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               style: const TextStyle(color: Colors.black),
                               decoration: decoration(
                                 '  Nombres',
-                                const FaIcon(
-                                  FontAwesomeIcons.userAlt, textDirection: TextDirection.rtl
-                                ),
+                                const FaIcon(FontAwesomeIcons.userAlt,
+                                    textDirection: TextDirection.rtl),
                               ),
                             ),
                             const SizedBox(height: 20.0),
@@ -116,11 +115,10 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               validator: TextValidators.nameValidator,
                               keyboardType: TextInputType.name,
                               style: const TextStyle(color: Colors.black),
-                              decoration: decoration( 
+                              decoration: decoration(
                                 '  Apellidos',
-                                const FaIcon(
-                                  FontAwesomeIcons.user, textDirection: TextDirection.rtl
-                                ),
+                                const FaIcon(FontAwesomeIcons.user,
+                                    textDirection: TextDirection.rtl),
                               ),
                             ),
                             const SizedBox(height: 20.0),
@@ -129,9 +127,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               style: const TextStyle(color: Colors.black),
                               decoration: decoration(
                                 '  Fecha de Nacimiento',
-                                const FaIcon(
-                                  FontAwesomeIcons.calendarAlt, textDirection: TextDirection.rtl
-                                ),
+                                const FaIcon(FontAwesomeIcons.calendarAlt,
+                                    textDirection: TextDirection.rtl),
                               ),
                               onTap: () async {
                                 DateTime? date;
@@ -151,36 +148,36 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               controller: _nombreConjuntoController,
                               validator: TextValidators.textMandatoryValidator,
                               keyboardType: TextInputType.name,
+                              enabled: false,
                               style: const TextStyle(color: Colors.black),
                               decoration: decoration(
                                 '  Nombre del Conjunto',
-                                const FaIcon(
-                                  FontAwesomeIcons.city, textDirection: TextDirection.rtl
-                                ),
+                                const FaIcon(FontAwesomeIcons.city,
+                                    textDirection: TextDirection.rtl),
                               ),
                             ),
                             const SizedBox(height: 20.0),
                             TextFormField(
                               controller: _apartmentController,
                               keyboardType: TextInputType.number,
+                              enabled: false,
                               style: const TextStyle(color: Colors.black),
                               decoration: decoration(
                                 '  Apartamento',
-                                const FaIcon(
-                                  FontAwesomeIcons.key, textDirection: TextDirection.rtl
-                                ),
+                                const FaIcon(FontAwesomeIcons.key,
+                                    textDirection: TextDirection.rtl),
                               ),
                             ),
                             const SizedBox(height: 20.0),
                             TextFormField(
                               controller: _blockController,
                               keyboardType: TextInputType.number,
+                              enabled: false,
                               style: const TextStyle(color: Colors.black),
                               decoration: decoration(
                                 '  Bloque',
-                                const FaIcon(
-                                  FontAwesomeIcons.solidBuilding, textDirection: TextDirection.rtl
-                                ),
+                                const FaIcon(FontAwesomeIcons.solidBuilding,
+                                    textDirection: TextDirection.rtl),
                               ),
                             ),
                             const SizedBox(height: 20.0),
@@ -192,7 +189,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               decoration: decoration(
                                 '  Correo',
                                 const FaIcon(
-                                  FontAwesomeIcons.solidEnvelope, textDirection: TextDirection.rtl,
+                                  FontAwesomeIcons.solidEnvelope,
+                                  textDirection: TextDirection.rtl,
                                 ),
                               ),
                             ),
@@ -205,7 +203,7 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                 prefixIconConstraints:
-                                  const BoxConstraints(minWidth: 30, maxHeight: 50),
+                                    const BoxConstraints(minWidth: 30, maxHeight: 50),
                                 labelText: '  Contraseña',
                                 labelStyle: const TextStyle(color: Colors.black),
                                 enabledBorder: const OutlineInputBorder(
@@ -214,9 +212,10 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                                 focusedBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black26),
                                 ),
-                                
-                                prefixIcon:
-                                  const FaIcon(FontAwesomeIcons.lock, textDirection: TextDirection.rtl,),     
+                                prefixIcon: const FaIcon(
+                                  FontAwesomeIcons.lock,
+                                  textDirection: TextDirection.rtl,
+                                ),
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
@@ -240,7 +239,7 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                               decoration: InputDecoration(
                                 // isDense: true,
                                 // contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                
+
                                 prefixIconConstraints:
                                     const BoxConstraints(minWidth: 30, maxHeight: 50),
                                 labelText: '  Confirma tu contraseña',
@@ -250,11 +249,11 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                                 ),
                                 focusedBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black26),
-                                  
                                 ),
-                                prefixIcon:
-                                
-                                  const FaIcon(FontAwesomeIcons.lock, textDirection: TextDirection.rtl,),
+                                prefixIcon: const FaIcon(
+                                  FontAwesomeIcons.lock,
+                                  textDirection: TextDirection.rtl,
+                                ),
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
@@ -293,7 +292,8 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
                             SizedBox(
                               width: double.maxFinite,
                               height: 45,
-                              child: ElevatedButton(onPressed: handleOnCreate, child: const Text('Registrar')),
+                              child: ElevatedButton(
+                                  onPressed: handleOnCreate, child: const Text('Registrar')),
                             ),
                           ],
                         ),
@@ -344,18 +344,12 @@ class _ResidentFormScreenState extends State<ResidentFormScreen> {
       setState(() => isLoading = false);
       final res = await Provider.of<ResidentsProvider>(context, listen: false)
           .registerResident(residentsModel);
-      if (res != null) {
-        await CustomModals().showError(message: res.message);
+      if (res == null) {
+        await CustomModals().showWellDone(message: 'Residente registrado');
         Navigator.of(context).pop();
         return;
       }
-      CustomModals().showWellDone(
-        message: res!.message,
-        onPressed: (){
-          Navigator.of(context).pop();
-           print('Entre HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --------------------------------------------------------------------------------------------------');
-        }
-      );
+      await CustomModals().showError(message: res.message);
     }
   }
 }
