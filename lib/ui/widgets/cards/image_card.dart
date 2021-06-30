@@ -34,13 +34,15 @@ class ImageCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                text,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 26,
-                  shadows: [Shadow(color: Colors.grey, blurRadius: 2)],
+              Expanded(
+                child: Text(
+                  text,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 26,
+                    shadows: [Shadow(color: Colors.grey, blurRadius: 2)],
+                  ),
                 ),
               ),
               const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 30),

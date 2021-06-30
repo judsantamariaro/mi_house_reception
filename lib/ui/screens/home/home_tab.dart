@@ -11,7 +11,7 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<HomeMenu> cards = [
-      HomeMenu(text: 'Ctrl de Residentes', imgPath: 'assets/image_cards/1.jpg', onTap: () => Navigator.of(context).pushNamed(ResidentFormScreen.route)),
+      HomeMenu(text: 'Control de Residentes', imgPath: 'assets/image_cards/1.jpg', onTap: () => Navigator.of(context).pushNamed(ResidentFormScreen.route)),
       HomeMenu(text: 'Parqueaderos', imgPath: 'assets/image_cards/2.jpg', onTap: () {}),
       HomeMenu(text: 'Novedades', imgPath: 'assets/image_cards/3.jpg', onTap: () {}),
       HomeMenu(text: 'Crear una alerta', imgPath: 'assets/image_cards/4.jpg', onTap: () {}),
