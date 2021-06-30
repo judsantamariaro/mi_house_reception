@@ -215,8 +215,8 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
     }
     final res = await Provider.of<ReservationProvider>(context, listen: false).createReservation(
       CreateReservationModel(
-        fechaInicio: DateTime.parse(_initialDateController.text),
-        fechaFinal: DateTime.parse(_lastDateController.text),
+        fechaInicio: DateTime.parse(_initialDateController.text).add(const Duration(hours: 10)),
+        fechaFinal: DateTime.parse(_lastDateController.text).add(const Duration(hours: 12)),
         pago: isPaid,
         usuario: _emailController.text.trim(),
         conjunto: _conjuntoController.text.trim(),

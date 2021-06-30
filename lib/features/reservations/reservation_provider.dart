@@ -34,6 +34,10 @@ class ReservationProvider extends ChangeNotifier {
     return reservations.where((e) => e.nombreEspacio == 'Mudanza' && e.email == username).toList();
   }
 
+  List<ReservationResponse> getFilteredReservations() {
+    return reservations.where((e) => e.nombreEspacio != 'Mudanza').toList();
+  }
+
   Future<void> fetchReservations(ReservationModel reservation) async {
     try {
       startLoading();
@@ -63,6 +67,7 @@ class ReservationProvider extends ChangeNotifier {
       );
       spaces = (res['data'] as Iterable)
           .map((e) => SpaceReservationResponse.fromJson(e as Map<String, dynamic>))
+          .where((e) => e.nombre != 'Mudanza')
           .toList();
       stopLoading();
     } on Failure catch (e) {
@@ -111,10 +116,16 @@ class ReservationProvider extends ChangeNotifier {
     }
   }
 
-  Future<Failure?> deleteMoving(MovingModel movingModel) async {
+  Future<Failure?> deleteMoving(ReservationResponse reservationResponse) async {
+    final movingModel = MovingModel(
+      conjunto: reservationResponse.nombreConjunto,
+      usuario: reservationResponse.email,
+      fechaInicio: DateTime.parse(reservationResponse.fechaInicio),
+    );
     try {
       startLoading();
-      await httpHandler.performPost('/reserva/mudanza', movingModel.toJson());
+      await httpHandler.performDelete('/reserva/mudanza/eliminar', movingModel.toJson());
+      reservations.removeWhere((e) => e == reservationResponse);
       stopLoading();
     } on Failure catch (e) {
       failure = e;

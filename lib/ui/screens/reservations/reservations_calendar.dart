@@ -111,14 +111,14 @@ class ReservationsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final reservationsProv = Provider.of<ReservationProvider>(context);
+    final reservations = Provider.of<ReservationProvider>(context).getFilteredReservations();
     final authProvider = Provider.of<AuthProvider>(context);
     return ListView.separated(
       separatorBuilder: (_, __) => const SizedBox(height: 5),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      itemCount: reservationsProv.reservations.length,
+      itemCount: reservations.length,
       itemBuilder: (context, i) {
-        final res = reservationsProv.reservations[i];
+        final res = reservations[i];
         return Card(
           child: ListTile(
             title: Text(res.nombreEspacio),

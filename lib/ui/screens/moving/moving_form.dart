@@ -116,7 +116,7 @@ class _MovingFormScreenState extends State<MovingFormScreen> {
     }
     final res = await Provider.of<ReservationProvider>(context, listen: false).createMoving(
       MovingModel(
-        fechaInicio: DateTime.parse(_initialDateController.text),
+        fechaInicio: DateTime.parse(_initialDateController.text).add(const Duration(hours: 10)),
         usuario: _emailController.text.trim(),
         conjunto: _conjuntoController.text.trim(),
       ),

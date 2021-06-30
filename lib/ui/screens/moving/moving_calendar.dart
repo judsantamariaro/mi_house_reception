@@ -119,6 +119,8 @@ class MovingList extends StatelessWidget {
         final res = spaces[i];
         return Dismissible(
           key: Key('${res.id}${res.fechaInicio}'),
+          direction: DismissDirection.endToStart,
+          onDismissed: (dismissed) => resProv.deleteMoving(res),
           background: Card(
             color: Colors.red,
             child: Container(
@@ -133,7 +135,7 @@ class MovingList extends StatelessWidget {
               subtitle: Text(res.tipoEspacio),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),
-                onPressed: () {},
+                onPressed: () => resProv.deleteMoving(res),
               ),
             ),
           ),
